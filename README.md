@@ -1,34 +1,34 @@
 A complete Change Data Capture (CDC) pipeline using Debezium, Kafka, PostgreSQL, and ClickHouse. This project demonstrates how to capture data changes from PostgreSQL in real-time and stream them to ClickHouse for analytics.
 
-                          +------------------------+
-                          |      PostgreSQL        |
-                          |        (5432)          |
-                          +-----------+------------+
-                                      |
-                                      | 1. CDC Events
-                                      v
-+-----------------+       +------------------------+       +------------------------+
-|                 |       |                        |       |                        |
-|    Zookeeper    | <---> |         Kafka          | <---- |   Debezium Connect     |
-|     (2181)      |       |        (9092)          |       |        (8083)          |
-+-----------------+       +------------+-----------+       +------------------------+
-                                       |
-                                       | 2. Change Events
-                          +------------+------------+
-                          |                         |
-                          v                         v
-                  +---------------+        +------------------+
-                  |               |        |                  |
-                  |    Kafdrop    |        |    ClickHouse    |
-                  |    (9000)     |        |   (8123/9001)    |
-                  +---------------+        +------------------+
-                          |                         |
-                          | 3. Monitor              | 4. Query/Analyze
-                          v                         v
-                  +---------------+        +------------------+
-                  |    Browser    |        |  Data Consumers  |
-                  |  (localhost)  |        |                  |
-                  +---------------+        +------------------+
++------------------------+
+|      PostgreSQL        |
+|        (5432)          |
++-----------+------------+
+            |
+            | 1. CDC Events
+            v
++--------------+        +---------------+        +------------------+
+|              |        |               |        |                  |
+| Zookeeper    |<------>|    Kafka      |<-------| Debezium Connect |
+| (2181)       |        |    (9092)     |        | (8083)           |
++--------------+        +-------+-------+        +------------------+
+                                |
+                                | 2. Change Events
+                 +--------------+--------------+
+                 |                             |
+                 v                             v
+        +----------------+             +----------------+
+        |                |             |                |
+        |    Kafdrop     |             |   ClickHouse   |
+        |    (9000)      |             | (8123/9001)    |
+        +-------+--------+             +-------+--------+
+                |                              |
+                | 3. Monitor                   | 4. Query/Analyze
+                v                              v
+        +----------------+             +----------------+
+        |    Browser     |             | Data Consumers |
+        |  (localhost)   |             |                |
+        +----------------+             +----------------+
 
 Data Flow:
 1. PostgreSQL changes are captured by Debezium Connect
