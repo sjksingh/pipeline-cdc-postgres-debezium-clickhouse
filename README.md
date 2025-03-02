@@ -35,7 +35,7 @@ PostgreSQL → Debezium Connect → Kafka → ClickHouse
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/kafka-cdc-pipeline.git
+git clone https://github.com/sjksingh/pipeline-cdc-postgres-debezium-clickhouse
 cd kafka-cdc-pipeline
 ```
 
