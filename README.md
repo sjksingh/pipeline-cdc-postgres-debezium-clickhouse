@@ -36,7 +36,7 @@ PostgreSQL → Debezium Connect → Kafka → ClickHouse
 
 ```bash
 git clone https://github.com/sjksingh/pipeline-cdc-postgres-debezium-clickhouse
-cd kafka-cdc-pipeline
+cd pipeline-cdc-postgres-debezium-clickhouse
 ```
 
 ### 2. Start the containers
