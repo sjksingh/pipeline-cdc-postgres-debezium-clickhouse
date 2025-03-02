@@ -74,15 +74,34 @@ The setup script will:
 
 Open http://localhost:9000 in your browser and navigate to the topic `dbserver1.public.customers`. You should see the initial data load messages.
 
-### 2. Make changes to the PostgreSQL database
+### 2. Create the Clickhouse objects 
+Create the Clickhouse Objects ```bash create_clickhouse_objects.sh```
+
+Verify new objects 
+```bash 
+login_clickhouse.sh
+show tables;  3 objects - kafka table, MV and base table.
+Select * from customers; { 3 rows} 
+```
+
+### 3. Make changes to the PostgreSQL database
 
 ```bash
-PGPASSWORD=postgres psql -h localhost -U postgres -d testdb -c "INSERT INTO customers (name, email) VALUES ('New User', 'new@example.com');"
+login_pg.sh
+select * from customers;
+INSERT INTO customers (name, email) VALUES ('John Doe', 'John@Doe.com');"
+select * from customers;
 ```
 
 ### 3. Verify the changes were captured
 
 Check Kafdrop again to see the new message in the topic.
+
+Check in Clickhouse for the new row
+```bash
+login_clickhouse.sh
+select * from customers;
+```
 
 ## Container Access Commands
 
@@ -125,14 +144,6 @@ docker exec -it clickhouse clickhouse-client
 # Execute a query
 docker exec -it clickhouse clickhouse-client --query "SHOW DATABASES"
 ```
-
-### Time for CDC
-Create the Clickhouse Objects ```bash create_clickhouse_objects.sh```
-Verify ```bash login_clickhouse.sh``` show tables - should see 3 objects - kafka table, MV and base table. Select * from customers; { 3 rows} 
-
-Create a new row on Postgres: ```bash login_pg.sh -> select * from customers; INSERT INTO customers ('John Doe', 'John@doe'); ```
-Back to Clickhouse shell: ``` select * from customers; ``` Better see new row now. :) 
-
 
 ### View logs for any container
 
