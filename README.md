@@ -1,4 +1,4 @@
-# Kafka CDC Pipeline
+# Postgres-Clickhouse-Kafka CDC Pipeline
 
 A complete Change Data Capture (CDC) pipeline using Debezium, Kafka, PostgreSQL, and ClickHouse. This project demonstrates how to capture data changes from PostgreSQL in real-time and stream them to ClickHouse for analytics.
 
