@@ -126,6 +126,14 @@ docker exec -it clickhouse clickhouse-client
 docker exec -it clickhouse clickhouse-client --query "SHOW DATABASES"
 ```
 
+### Time for CDC
+Create the Clickhouse Objects ```bash create_clickhouse_objects.sh```
+Verify ```bash login_clickhouse.sh``` show tables - should see 3 objects - kafka table, MV and base table. Select * from customers; { 3 rows} 
+
+Create a new row on Postgres: ```bash login_pg.sh -> select * from customers; INSERT INTO customers ('John Doe', 'John@doe'); ```
+Back to Clickhouse shell: ``` select * from customers; ``` Better see new row now. :) 
+
+
 ### View logs for any container
 
 ```bash
