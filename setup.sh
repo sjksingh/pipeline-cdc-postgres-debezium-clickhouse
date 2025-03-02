@@ -26,7 +26,7 @@ PGPASSWORD=postgres psql -h localhost -U postgres -d testdb -c "
 INSERT INTO customers (name, email) VALUES
 ('John Doe', 'john@example.com'),
 ('Jane Smith', 'jane@example.com'),
-('Sanjeev Singh', 'Sanjeev@Singh.com')
+('Bill Gates', 'Bill@Gates.com')
 ;"
 
 # Configure Debezium connector
